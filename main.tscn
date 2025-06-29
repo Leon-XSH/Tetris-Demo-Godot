@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=4 uid="uid://duxcm6y7rykol"]
+
+[ext_resource type="Script" uid="uid://djbrak0c4mgp0" path="res://game.gd" id="1_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://wlcaw5vnknx2" path="res://assets/texture/Tetrominoes/Background.png" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://xdr35bhoi8jj" path="res://assets/texture/Tetrominoes/Border.png" id="2_0xm2m"]
+[ext_resource type="TileSet" uid="uid://bo4euv0jerhqi" path="res://brick_tile_set.tres" id="3_h2yge"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Game" type="Node2D" parent="."]
+script = ExtResource("1_1bvp3")
+
+[node name="Background" type="Sprite2D" parent="Game"]
+position = Vector2(200, 400)
+texture = ExtResource("1_ig7tw")
+
+[node name="GameAreaBorder" type="Sprite2D" parent="Game"]
+position = Vector2(200, 400)
+texture = ExtResource("2_0xm2m")
+
+[node name="BrickBasePosition" type="Marker2D" parent="Game"]
+position = Vector2(50, 100)
+
+[node name="BrickLayer" type="TileMapLayer" parent="Game/BrickBasePosition"]
+tile_set = ExtResource("3_h2yge")
+
+[node name="NextBrickBasePosition" type="Marker2D" parent="Game"]
+position = Vector2(311, 25)
+scale = Vector2(0.6, 0.6)
+
+[node name="NextBrickLayer" type="TileMapLayer" parent="Game/NextBrickBasePosition"]
+tile_map_data = PackedByteArray("AAAAAAAAAAACAAAAAAABAAAAAAACAAAAAAACAAAAAAACAAAAAAADAAAAAAACAAAAAAABAAEAAAADAAEAAAACAAEAAAADAAEAAAA=")
+tile_set = ExtResource("3_h2yge")
+
+[node name="UpdateTimer" type="Timer" parent="Game"]
+autostart = true
+
+[connection signal="timeout" from="Game/UpdateTimer" to="Game" method="_on_update_timer_timeout"]
